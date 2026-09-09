@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Reservar turno{% endblock %}
+{% block content %}
+<h1>Reservá tu turno</h1>
+
+<form id="form-reserva" hx-post="/reservar" hx-target="#resultado" hx-swap="innerHTML">
+    <label>Servicio</label>
+    <select name="servicio_id" id="servicio_id"
+            hx-get="/horarios-disponibles" hx-target="#horarios"
+            hx-include="#empleada_id,#fecha" hx-trigger="change">
+        <option value="">Elegí un servicio</option>
+        {% for s in servicios %}
+        <option value="{{ s.id }}">{{ s.nombre }} ({{ s.duracion_min }} min{% if s.precio %} - ${{ s.precio }}{% endif %})</option>
+        {% endfor %}
+    </select>
+
+    <label>Profesional</label>
+    <select name="empleada_id" id="empleada_id"
+            hx-get="/horarios-disponibles" hx-target="#horarios"
+            hx-include="#servicio_id,#fecha" hx-trigger="change">
+        <option value="">Elegí una profesional</option>
+        {% for e in empleadas %}
+        <option value="{{ e.id }}">{{ e.nombre }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Fecha</label>
+    <input type="date" name="fecha" id="fecha" min="{{ hoy }}"
+           hx-get="/horarios-disponibles" hx-target="#horarios"
+           hx-include="#servicio_id,#empleada_id" hx-trigger="change">
+
+    <label>Horario disponible</label>
+    <div id="horarios">
+        <p class="hint">Elegí servicio, profesional y fecha para ver horarios.</p>
+    </div>
+
+    <label>Tu nombre</label>
+    <input type="text" name="cliente_nombre" required>
+
+    <label>Tu teléfono</label>
+    <input type="tel" name="cliente_telefono" required>
+
+    <button type="submit">Confirmar turno</button>
+</form>
+
+<div id="resultado"></div>
+{% endblock %}

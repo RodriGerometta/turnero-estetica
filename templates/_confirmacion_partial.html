@@ -1,0 +1,7 @@
+<div class="confirmacion">
+    <h2>¡Turno confirmado!</h2>
+    <p><strong>Servicio:</strong> {{ servicio.nombre }}</p>
+    <p><strong>Profesional:</strong> {{ empleada.nombre }}</p>
+    <p><strong>Fecha:</strong> {{ turno.fecha.strftime('%d/%m/%Y') }}</p>
+    <p><strong>Hora:</strong> {{ turno.hora_inicio.strftime('%H:%M') }}</p>
+</div>

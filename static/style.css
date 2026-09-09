@@ -1,0 +1,94 @@
+* { box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #fdf6f8;
+    color: #333;
+    margin: 0;
+    padding: 0 0 20px 0;
+}
+.navbar {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+}
+.navbar-brand {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #b3446c;
+    text-decoration: none;
+}
+.navbar-right { display: flex; gap: 14px; align-items: center; }
+.navbar-login {
+    text-decoration: none;
+    color: #b3446c;
+    font-weight: 600;
+    border: 1px solid #b3446c;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+.navbar-login:hover { background: #b3446c; color: #fff; }
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 24px 32px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+h1 { color: #b3446c; }
+h2 { color: #7a2e46; border-bottom: 2px solid #f3d1dd; padding-bottom: 6px; }
+label { display: block; margin-top: 14px; font-weight: 600; font-size: 0.9rem; }
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+button {
+    margin-top: 18px;
+    background: #b3446c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+button:hover { background: #93334f; }
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+}
+.slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 4px;
+    font-weight: normal;
+    cursor: pointer;
+}
+.slot input { width: auto; margin: 0 6px 0 0; }
+.hint { color: #888; font-style: italic; }
+.error { color: #b00020; font-weight: 600; }
+.confirmacion {
+    background: #e6f7ec;
+    border: 1px solid #b6e3c6;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 16px;
+}
+table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #eee; }
+tr.cancelado { opacity: 0.5; text-decoration: line-through; }
+section { margin-top: 30px; }
+details { margin-top: 10px; }
+form button { width: auto; padding: 6px 12px; margin-top: 6px; }

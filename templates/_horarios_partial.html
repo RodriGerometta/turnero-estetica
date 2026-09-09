@@ -1,0 +1,13 @@
+{% if slots %}
+<div class="slots-grid">
+    {% for slot in slots %}
+    <label class="slot">
+        <input type="radio" name="hora_inicio" value="{{ slot.strftime('%H:%M') }}"
+               form="form-reserva" required>
+        {{ slot.strftime('%H:%M') }}
+    </label>
+    {% endfor %}
+</div>
+{% else %}
+<p class="hint">No hay horarios disponibles para esa combinación. Probá otra fecha.</p>
+{% endif %}

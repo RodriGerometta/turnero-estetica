@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Admin{% endblock %}
+{% block navbar_right %}
+<a href="/" class="navbar-login">Ver sitio</a>
+<a href="/admin/logout" class="navbar-login">Cerrar sesión ({{ admin_user }})</a>
+{% endblock %}
+{% block content %}
+<h1>Panel de administración</h1>
+
+<section>
+    <h2>Turnos próximos</h2>
+    <table>
+        <thead>
+            <tr><th>Fecha</th><th>Hora</th><th>Cliente</th><th>Teléfono</th><th>Profesional</th><th>Servicio</th><th>Estado</th><th></th></tr>
+        </thead>
+        <tbody>
+            {% for t in turnos %}
+            <tr class="{{ 'cancelado' if t.estado == 'cancelado' }}">
+                <td>{{ t.fecha.strftime('%d/%m/%Y') }}</td>
+                <td>{{ t.hora_inicio.strftime('%H:%M') }}</td>
+                <td>{{ t.cliente_nombre }}</td>
+                <td>{{ t.cliente_telefono }}</td>
+                <td>{{ t.empleada.nombre }}</td>
+                <td>{{ t.servicio.nombre }}</td>
+                <td>{{ t.estado }}</td>
+                <td>
+                    {% if t.estado == 'confirmado' %}
+                    <form method="post" action="/admin/turnos/{{ t.id }}/cancelar">
+                        <button type="submit">Cancelar</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>Profesionales</h2>
+    <table>
+        <thead><tr><th>Nombre</th><th>Jornada</th><th>Activa</th><th></th></tr></thead>
+        <tbody>
+            {% for e in empleadas %}
+            <tr>
+                <td>{{ e.nombre }}</td>
+                <td>{{ e.hora_inicio_jornada.strftime('%H:%M') }} - {{ e.hora_fin_jornada.strftime('%H:%M') }}</td>
+                <td>{{ "Sí" if e.activo else "No" }}</td>
+                <td>
+                    <form method="post" action="/admin/empleadas/{{ e.id }}/toggle">
+                        <button type="submit">{{ "Desactivar" if e.activo else "Activar" }}</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <details>
+        <summary>Agregar profesional</summary>
+        <form method="post" action="/admin/empleadas">
+            <label>Nombre</label>
+            <input type="text" name="nombre" required>
+            <label>Inicio de jornada</label>
+            <input type="time" name="hora_inicio_jornada" required>
+            <label>Fin de jornada</label>
+            <input type="time" name="hora_fin_jornada" required>
+            <button type="submit">Guardar</button>
+        </form>
+    </details>
+</section>
+
+<section>
+    <h2>Servicios</h2>
+    <table>
+        <thead><tr><th>Nombre</th><th>Duración</th><th>Precio</th><th>Activo</th><th></th></tr></thead>
+        <tbody>
+            {% for s in servicios %}
+            <tr>
+                <td>{{ s.nombre }}</td>
+                <td>{{ s.duracion_min }} min</td>
+                <td>{{ ("$" + s.precio|string) if s.precio else "-" }}</td>
+                <td>{{ "Sí" if s.activo else "No" }}</td>
+                <td>
+                    <form method="post" action="/admin/servicios/{{ s.id }}/toggle">
+                        <button type="submit">{{ "Desactivar" if s.activo else "Activar" }}</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <details>
+        <summary>Agregar servicio</summary>
+        <form method="post" action="/admin/servicios">
+            <label>Nombre</label>
+            <input type="text" name="nombre" required>
+            <label>Duración (minutos)</label>
+            <input type="number" name="duracion_min" required>
+            <label>Precio (opcional)</label>
+            <input type="number" step="0.01" name="precio">
+            <button type="submit">Guardar</button>
+        </form>
+    </details>
+</section>
+{% endblock %}

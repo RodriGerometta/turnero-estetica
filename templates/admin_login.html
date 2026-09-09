@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Ingresar - Admin{% endblock %}
+{% block navbar_right %}
+<a href="/" class="navbar-login">← Volver al sitio</a>
+{% endblock %}
+{% block content %}
+<h1>Panel administración</h1>
+<form method="post" action="/admin/login">
+    <label>Usuario</label>
+    <input type="text" name="username" required>
+    <label>Contraseña</label>
+    <input type="password" name="password" required>
+    <button type="submit">Ingresar</button>
+</form>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+{% endblock %}

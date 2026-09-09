@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Turnero Estética{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">💇 Turnero</a>
+        <div class="navbar-right">
+            {% block navbar_right %}
+            <a href="/admin/login" class="navbar-login">Ingresar</a>
+            {% endblock %}
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
